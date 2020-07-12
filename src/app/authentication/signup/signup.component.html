@@ -1,0 +1,174 @@
+<div class="main-body">
+	<div class="row">
+		<div class="col-md-6 description">
+			<h3>Join in the awesome community</h3>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit.
+			</p>
+			<p>Lorem ipsum dolor sit amet.</p>
+			<p>Lorem, ipsum dolor.</p>
+			<p>Lorem ipsum dolor sit amet consectetur.</p>
+		</div>
+		<div class="col-md-6">
+			<div class="form">
+				<form [formGroup]="signupForm" (ngSubmit)="signupData()">
+					<div class="form-group">
+						<input
+							type="text"
+							placeholder="Username"
+							class="form-control"
+							formControlName="username"
+						/>
+						<span
+							class="text-danger"
+							*ngIf="
+								signupForm.get('username').invalid &&
+								signupForm.get('username').dirty
+							"
+						>
+							<small
+								*ngIf="
+									signupForm.get('username').errors.required
+								"
+							>
+								Required
+							</small>
+
+							<small
+								*ngIf="
+									signupForm.get('username').errors.minlength
+								"
+							>
+								Minimum 8 characters
+							</small>
+							<small
+								*ngIf="
+									signupForm.get('username').errors
+										.duplicateUsername
+								"
+							>
+								Duplicate Username
+							</small>
+						</span>
+					</div>
+					<div class="form-group">
+						<input
+							type="email"
+							placeholder="Email Id"
+							class="form-control"
+							formControlName="email"
+						/>
+						<span
+							class="text-danger"
+							*ngIf="
+								signupForm.get('email').invalid &&
+								signupForm.get('email').dirty
+							"
+						>
+							<small
+								*ngIf="signupForm.get('email').errors.required"
+							>
+								Required
+							</small>
+
+							<small *ngIf="signupForm.get('email').errors.email">
+								Invalid Email Format
+							</small>
+							<small
+								*ngIf="
+									signupForm.get('email').errors
+										.duplicateEmail
+								"
+							>
+								Duplicate Email
+							</small>
+						</span>
+					</div>
+					<div formGroupName="passwordGroup">
+						<div class="form-group">
+							<input
+								type="password"
+								placeholder="Password"
+								class="form-control"
+								formControlName="password"
+							/>
+							<span
+								class="text-danger"
+								*ngIf="
+									signupForm
+										.get('passwordGroup')
+										.get('password').invalid &&
+									signupForm
+										.get('passwordGroup')
+										.get('password').dirty
+								"
+							>
+								<small> Minimum 8 Characters </small>
+							</span>
+						</div>
+						<div class="form-group">
+							<input
+								type="password"
+								placeholder="Confirm Password"
+								class="form-control"
+								formControlName="confirmPassword"
+							/>
+							<span
+								class="text-danger"
+								*ngIf="
+									signupForm.get('passwordGroup').invalid &&
+									signupForm
+										.get('passwordGroup')
+										.get('confirmPassword').dirty
+								"
+							>
+								<small>Password Mismatched</small>
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<input
+							type="text"
+							placeholder="Date of Birth (MM/DD/YYYY)"
+							class="form-control"
+							formControlName="dob"
+						/>
+
+						<span
+							class="text-danger"
+							*ngIf="
+								signupForm.get('dob').invalid &&
+								signupForm.get('dob').dirty
+							"
+						>
+							<small
+								*ngIf="signupForm.get('dob').errors.required"
+							>
+								Required
+							</small>
+
+							<small *ngIf="signupForm.get('dob').errors.pattern">
+								Invalid Format
+							</small>
+						</span>
+					</div>
+					<div class="buttons">
+						<button
+							type="reset"
+							class="btn btn-sm btn-outline-danger px-5 clear"
+						>
+							Clear
+						</button>
+						<button
+							type="submit"
+							class="btn btn-sm btn-outline-primary px-5"
+							[disabled]="signupForm.invalid"
+						>
+							Signup
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

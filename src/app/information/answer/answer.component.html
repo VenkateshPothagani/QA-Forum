@@ -1,0 +1,165 @@
+<h2>Question</h2>
+<div class="block">
+	<div class="question content">
+		<div class="title">
+			<h5>{{ question?.title }}</h5>
+		</div>
+		<hr />
+		<div class="description">
+			<p>
+				{{ question?.description }}
+			</p>
+		</div>
+		<hr />
+
+		<div class="extras">
+			<div class="votes">
+				<div class="upvotes">
+					<span> {{ question?.upvotes }} </span><span>upvotes</span>
+				</div>
+				<div class="downvotes">
+					<span>{{ question?.downvotes }}</span
+					><span> Downvotes</span>
+				</div>
+			</div>
+			<div class="user">
+				<em>
+					{{ question?.username }} <br />
+					{{ question?.date | date: "medium" }}
+				</em>
+			</div>
+		</div>
+		<hr />
+		<div class="activities extras" *ngIf="authorization.isAuthenticated">
+			<div *ngIf="authorization.userId == question?.userId">
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="questionEdit()"
+				>
+					Edit
+				</button>
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="delete(question._id, 'question')"
+				>
+					Delete
+				</button>
+			</div>
+			<div *ngIf="authorization.userId != question?.userId">
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="addUpvote(question._id, 'question')"
+				>
+					Upvote
+				</button>
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="addDownvote(question._id, 'question')"
+				>
+					Downvote
+				</button>
+			</div>
+			<div>
+				<a [routerLink]="['/comment', 'question', question?._id]">
+					<button class="btn btn-sm px-3 btn-light mt-2 mr-2">
+						Comments
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="isQuestionEdit">
+	<app-edit-query
+		[id]="id"
+		[question]="question"
+		(questionEdit)="toggleQuestion($event)"
+	></app-edit-query>
+</div>
+
+<h2>Answers</h2>
+<div *ngIf="answers.length === 0" >
+	<h6>No Answers</h6>
+</div>
+<div *ngFor="let answer of answers" class="block">
+	<div class="content">
+		<div class="description">
+			<p>
+				{{ answer.description }}
+			</p>
+		</div>
+		<hr />
+		<div class="extras">
+			<div class="votes">
+				<div class="upvotes">
+					<span> {{ answer.upvotes }} </span><span>upvotes</span>
+				</div>
+				<div class="downvotes">
+					<span>{{ answer.downvotes }}</span
+					><span> Downvotes</span>
+				</div>
+			</div>
+			<div class="user">
+				<em>
+					{{ answer.username }} <br />
+					{{ answer.date | date: "medium" }}
+				</em>
+			</div>
+		</div>
+		<hr />
+		<div class="extras" *ngIf="authorization.isAuthenticated">
+			<div *ngIf="answer.userId == authorization.userId">
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="answerEdit(answer)"
+				>
+					Edit
+				</button>
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="delete(answer._id, 'answer')"
+				>
+					Delete
+				</button>
+			</div>
+			<div *ngIf="answer.userId != authorization.userId">
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="addUpvote(answer._id, 'answer')"
+				>
+					Upvote
+				</button>
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="addDownvote(answer._id, 'answer')"
+				>
+					Downvote
+				</button>
+			</div>
+
+			<div>
+				<a [routerLink]="['/comment', 'answer', answer?._id]"
+					><button class="btn btn-sm px-3 btn-light mt-2 mr-2">
+						Comments
+					</button></a
+				>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="authorization.isAuthenticated">
+	<div *ngIf="!isEdit">
+		<app-edit-answer
+			[id]="id"
+			(answerCreate)="newAnswers($event)"
+		></app-edit-answer>
+	</div>
+	<div *ngIf="isEdit">
+		<app-edit-answer
+			[answer]="sendAnswer"
+			(answerUpdate)="updatedAnswer($event)"
+		></app-edit-answer>
+	</div>
+</div>

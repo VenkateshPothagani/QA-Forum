@@ -1,0 +1,50 @@
+<div class="jumbotron">
+	<div class="error-message">
+		<div class="error-message">
+			<div *ngIf="errorCode === '404'; else unknown">
+				<h2>PAGE NOT FOUND</h2>
+
+				<h5>ERROR CODE 404</h5>
+			</div>
+			<ng-template #unknown>
+				<div *ngIf="errorCode === '401'; else unknown">
+					<h2>
+						UNAUTHORIZED ERROR
+					</h2>
+					<h5>
+						ERROR CODE 401
+					</h5>
+				</div>
+				<ng-template #unknown>
+					<div *ngIf="errorCode === '500'; else unknown">
+						<h2>INTERNAL SERVER ERROR</h2>
+						<h5>ERROR CODE 500</h5>
+					</div>
+					<ng-template #unknown>
+						<h2>NO RESPONSE FROM SERVER</h2>
+					</ng-template>
+				</ng-template>
+			</ng-template>
+		</div>
+	</div>
+
+	<div class="actions">
+		<div class="buttons">
+			<a [routerLink]="['/auth', 'signup']">
+				<button class="btn btn-outline-primary btn-sm px-4 m-2">
+					Sign up
+				</button>
+			</a>
+			<a [routerLink]="['/auth', 'signin']"
+				><button class="btn btn-outline-primary btn-sm px-4 m-2">
+					Sign in
+				</button></a
+			>
+			<a [routerLink]="['/']"
+				><button class="btn btn-outline-primary btn-sm px-4 m-2">
+					Home
+				</button></a
+			>
+		</div>
+	</div>
+</div>

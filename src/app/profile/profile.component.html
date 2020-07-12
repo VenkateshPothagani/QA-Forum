@@ -1,0 +1,74 @@
+<div class="form">
+	<form [formGroup]="profileUpdateForm" (ngSubmit)="updateProfile()">
+		<div class="form-group row">
+			<div class="col-md-4">
+				<label for="username">Username</label>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-7">
+				<input
+					type="text"
+					class="form-control"
+					id="username"
+					formControlName="username"
+					[value]="data.username"
+				/>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<div class="col-md-4 mb-1">
+				<label for="email">Email</label>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-7">
+				<input
+					type="email"
+					class="form-control"
+					id="email"
+					formControlName="email"
+					[value]="data.email"
+				/>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<div class="col-md-4">
+				<label for="dob">DOB(MM/DD/YYYY)</label>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-7">
+				<input
+					type="text"
+					class="form-control"
+					id="dob"
+					formControlName="dob"
+					[value]="data.dob"
+				/>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-md-4 text-center">
+				<span>Questions: {{ data.activity.questions }}</span>
+			</div>
+			<div class="col-md-4 text-center">
+				<span>Answers: {{ data.activity.answers }} </span>
+			</div>
+			<div class="col-md-4 text-center">
+				<span>Comments: {{ data.activity.comments }} </span>
+			</div>
+		</div>
+
+		<div class="button">
+			<div *ngIf="authorization.isAuthenticated">
+				<button
+					type="submit"
+					class="btn btn-sm btn-outline-primary btn-block px-3"
+					[disabled]="profileUpdateForm.invalid"
+				>
+					Submit
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

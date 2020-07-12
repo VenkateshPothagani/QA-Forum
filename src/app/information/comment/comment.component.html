@@ -1,0 +1,104 @@
+<div class="parent block">
+	<div class="content">
+		<div class="description">
+			<p>
+				{{ parent?.description }}
+			</p>
+		</div>
+		<hr />
+		<div class="extras">
+			<div class="votes">
+				<div class="upvotes">
+					<span> {{ parent?.upvotes }} </span><span>upvotes</span>
+				</div>
+				<div class="downvotes">
+					<span>{{ parent?.downvotes }}</span
+					><span> Downvotes</span>
+				</div>
+			</div>
+			<div class="user">
+				<em>
+					{{ parent?.username }} <br />
+					{{ parent?.date | date: "medium" }}
+				</em>
+			</div>
+		</div>
+	</div>
+</div>
+<h5 class="mt-5">COMMENTS</h5>
+<div *ngIf="comments.length == 0">
+	<h6 class="my-4">
+		No Comments
+	</h6>
+</div>
+<div *ngFor="let comment of comments" class="block">
+	<div class="answer content">
+		<div class="description">
+			<p>
+				{{ comment.description }}
+			</p>
+		</div>
+		<hr />
+		<div class="extras">
+			<div class="votes">
+				<div class="upvotes">
+					<span> {{ comment.upvotes }} </span><span>upvotes</span>
+				</div>
+				<div class="downvotes">
+					<span>{{ comment.downvotes }}</span
+					><span> Downvotes</span>
+				</div>
+			</div>
+			<div class="user">
+				<em>
+					{{ comment.username }} <br />
+					{{ comment.date | date: "medium" }}
+				</em>
+			</div>
+		</div>
+		<hr />
+		<div class="activities extras" *ngIf="authorization.isAuthenticated">
+			<div *ngIf="authorization.userId == comment.userId">
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="commentEdit(comment)"
+				>
+					Edit
+				</button>
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="delete(comment._id, 'comment')"
+				>
+					Delete
+				</button>
+			</div>
+			<div>
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="addUpvote(comment._id, 'comment')"
+				>
+					Upvote
+				</button>
+				<button
+					class="btn btn-sm px-3 btn-light mt-2 mr-2"
+					(click)="addDownvote(comment._id, 'comment')"
+				>
+					Downvote
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="authorization.isAuthenticated">
+	<div *ngIf="isEdit">
+		<app-edit-comment
+			[comment]="comment"
+			(updateComment)="updatedComments($event)"
+		></app-edit-comment>
+	</div>
+
+	<div *ngIf="!isEdit">
+		<app-edit-comment [id]="id" (newComments)="addNewComment($event)"></app-edit-comment>
+	</div>
+</div>

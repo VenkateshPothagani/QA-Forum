@@ -1,0 +1,35 @@
+input.ng-dirty.ng-invalid {
+    border: 1px solid red;
+}
+
+.buttons {
+    display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.description {
+    display: flex;
+    justify-content: center;
+	flex-direction: column;
+}
+
+.content > p,
+h3 {
+    margin: auto;
+}
+
+ul {
+    list-style: none;
+}
+
+
+@media screen and (max-width: 768px) {
+	.clear {
+		display: none;
+	}
+}
+
+p, h3 {
+	text-align: center;
+}

@@ -1,0 +1,48 @@
+<div class="main-body">
+	<div class="form">
+		<div class="info" *ngIf="error">
+			<div
+				class="alert alert-danger alert-dismissible fade show"
+				role="alert"
+			>
+				<strong>Invalid Credentials</strong>
+				<button
+					type="button"
+					class="close"
+					data-dismiss="alert"
+					aria-label="Close"
+					(click)="error = !error"
+				>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+		<form [formGroup]="signinForm" (ngSubmit)="signinData()">
+			<div class="form-group">
+				<input
+					type="text"
+					placeholder="Username"
+					class="form-control"
+					formControlName="username"
+				/>
+			</div>
+			<div class="form-group">
+				<input
+					type="password"
+					placeholder="Password"
+					class="form-control"
+					formControlName="password"
+				/>
+			</div>
+			<div class="buttons">
+				<button
+					type="submit"
+					class="btn btn-block btn-outline-primary btn-sm px-5"
+					[disabled]="signinForm.invalid"
+				>
+					Log in
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

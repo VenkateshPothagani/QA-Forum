@@ -1,0 +1,42 @@
+<div *ngFor="let query of queries" class="block">
+	<div class="content">
+		<div class="question">
+			<div class="title">
+				<a [routerLink]="['answer', query._id]">
+					{{ query.title }}
+				</a>
+			</div>
+			<hr />
+			<div
+				class="description mt-2"
+				*ngIf="query.description.length >= 200"
+			>
+				{{ query.description | slice: 0:200 }} ....
+			</div>
+			<div
+				class="description mt-2"
+				*ngIf="query.description.length < 200"
+			>
+				{{ query.description }}
+			</div>
+		</div>
+		<hr />
+		<div class="extras">
+			<div class="votes">
+				<div class="upvotes">
+					<span> {{ query.upvotes }} </span><span>upvotes</span>
+				</div>
+				<div class="downvotes">
+					<span>{{ query.downvotes }}</span
+					><span> Downvotes</span>
+				</div>
+			</div>
+			<div class="user">
+				<em>
+					{{ query.username }} <br />
+					{{ query.date | date: "medium" }}
+				</em>
+			</div>
+		</div>
+	</div>
+</div>
